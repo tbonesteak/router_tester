@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+
   end
 
   def new
@@ -19,4 +20,19 @@ class ArticlesController < ApplicationController
 
   def destroy
   end
+
+  # def promote
+  #  end
+  #  
+  #  def generate_statistics
+  #  end
+
+
 end
+
+
+# link_to :promote_employees_path, :method => :post
+#
+# /promote/employees
+#
+# promote_employee  PUT            employees#promote

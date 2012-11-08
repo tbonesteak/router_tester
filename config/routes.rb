@@ -1,17 +1,68 @@
 RouterTester::Application.routes.draw do
-  get "articles/index"
+  # get "articles/index"
+  #
+  # get "articles/show"
+  #
+  # get "articles/new"
+  #
+  # get "articles/edit"
+  #
+  # get "articles/create"
+  #
+  # get "articles/update"
+  #
+  # get "articles/destroy"
 
-  get "articles/show"
 
-  get "articles/new"
+  #Add a resources declaration for a resource named companies. Observe that seven routes are added following the      RESTful convention
+  resources :companies
+  # Add a second set of resources named managers and observe the routes increase to 14
+  resources :managers
 
-  get "articles/edit"
+  # resources :employees do
+  #   member do
+  #     put 'promote'
+  #   end
+  # end
 
-  get "articles/create"
 
-  get "articles/update"
+  #Add nested evaluations resources underneath employees. Make sure that you have routes generated like employee_evaluations_path
+  #Add nested scores resources underneath evaluations. Observe how the route names get insane, and reflect on how these nested resources are just not worth it.
+  resources :employees do
+    resources :evaluations do
+      resources :scores
+    end
+  end
 
-  get "articles/destroy"
+
+  #Add a custom route that will trigger the promote action of EmployeesController when a PUT is submitted to promote_employee_path
+  resources :employees do
+    put 'promote', :on => :member
+  end
+
+ #Add a custom route that will trigger the generate_statistics action of 'ManagersController' when a GET is submitted to generate_statistics_managers_path
+  resources :managers do
+    get 'generate_statistics', :on => :member
+  end
+
+ #Non-RESTful Routes
+
+  #Add a route that will redirect requests for /bosses/ to /managers/
+  match "/bosses" => redirect("/managers")
+  #Add another that redirects show requests like /bosses/16 to /managers/16
+  match "/bosses/:id" => redirect("/managers/:id")
+
+
+
+  # put "employees/promote" as =>
+
+
+
+  # match 'promote/employees' => 'employees#promote', :via => :put
+  # match 'generate_statistics/managers' => 'managers#generate_statistics', :via => :get
+
+
+  # resources :promote, :controller => "employees"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
